@@ -1,12 +1,13 @@
-import express, { Application, request, Request, Response } from "express";
+import express, { Application, Request, Response } from "express";
+import userRouter from "./routes/userRouter";
 
 const app: Application = express();
-const PORT = 3000;
+app.use(express.json());
 
-app.get("/", (req: Request, res: Response) => {
-  res.json({ message: "Hello from Express:TypeScript" });
-});
+const port: number = 3000;
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.use("/api/users", userRouter);
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
