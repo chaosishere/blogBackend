@@ -72,7 +72,10 @@ userRouter.post("/signin", (req, res) => __awaiter(void 0, void 0, void 0, funct
         res.json({
             token: token,
         });
-        return;
     }
+    else {
+        res.json({ message: "Invalid Inputs" });
+    }
+    return;
 }));
 exports.default = userRouter;
