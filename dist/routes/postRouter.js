@@ -13,18 +13,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const zod_1 = require("zod");
 const db_1 = __importDefault(require("../db"));
 const middlewares_1 = __importDefault(require("../middlewares")); // Fix typo: middlewares instead of middlwares
+const blog_common_1 = require("@chaosdevelopertools/blog-common");
 const blogRouter = (0, express_1.Router)();
-const blogBody = zod_1.z.object({
-    title: zod_1.z.string().min(4),
-    content: zod_1.z.string(),
-    published: zod_1.z.boolean().optional(), // published is optional, default to false
-});
 // POST route to create a blog, protected by authMiddleware
 blogRouter.post("/blog", middlewares_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = blogBody.safeParse(req.body);
+    const result = blog_common_1.blogBody.safeParse(req.body);
     if (result.success) {
         try {
             const { title, content, published = false } = result.data;

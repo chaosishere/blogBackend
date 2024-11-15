@@ -2,14 +2,8 @@ import { Router } from "express";
 import { z } from "zod";
 import prisma from "../db";
 import authMiddleware from "../middlewares"; // Fix typo: middlewares instead of middlwares
-
+import { blogBody } from "@chaosdevelopertools/blog-common";
 const blogRouter = Router();
-
-const blogBody = z.object({
-  title: z.string().min(4),
-  content: z.string(),
-  published: z.boolean().optional(), // published is optional, default to false
-});
 
 // POST route to create a blog, protected by authMiddleware
 blogRouter.post("/blog", authMiddleware, async (req, res) => {

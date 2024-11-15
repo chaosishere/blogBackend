@@ -13,17 +13,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const zod_1 = require("zod");
 const db_1 = __importDefault(require("../db"));
 const config_1 = require("../config");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const blog_common_1 = require("@chaosdevelopertools/blog-common");
 const userRouter = (0, express_1.Router)();
-const signUpBody = zod_1.z.object({
-    email: zod_1.z.string().email(),
-    password: zod_1.z.string().min(8),
-});
 userRouter.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = signUpBody.safeParse(req.body);
+    const result = blog_common_1.signUpBody.safeParse(req.body);
     if (!result.success) {
         res.status(400).json({
             message: result.error.errors.map((e) => e.message),
@@ -51,7 +47,7 @@ userRouter.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, funct
     }
 }));
 userRouter.post("/signin", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = signUpBody.safeParse(req.body);
+    const result = blog_common_1.signUpBody.safeParse(req.body);
     if (!result.success) {
         res.status(400).json({
             message: result.error.errors.map((e) => e.message),
@@ -70,7 +66,7 @@ userRouter.post("/signin", (req, res) => __awaiter(void 0, void 0, void 0, funct
             userId: user.id,
         }, config_1.JWT_SECRET);
         res.json({
-            token: token,
+            token,
         });
     }
     else {

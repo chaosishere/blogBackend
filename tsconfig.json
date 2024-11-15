@@ -104,5 +104,5 @@
     // "skipDefaultLibCheck": true,
     "skipLibCheck": true // Skip type checking all .d.ts files.
   },
-  "include": ["src/**/*.ts", "types.d.ts"]
+  "include": ["src/types.d.ts", "src/**/*.ts"]
 }

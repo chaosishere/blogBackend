@@ -3,13 +3,9 @@ import { z } from "zod";
 import prisma from "../db";
 import { JWT_SECRET } from "../config";
 import jwt from "jsonwebtoken";
+import { signUpBody } from "@chaosdevelopertools/blog-common";
 
 const userRouter = Router();
-
-const signUpBody = z.object({
-  email: z.string().email(),
-  password: z.string().min(8),
-});
 
 userRouter.post("/signup", async (req, res) => {
   const result = signUpBody.safeParse(req.body);
@@ -67,7 +63,7 @@ userRouter.post("/signin", async (req, res) => {
     );
 
     res.json({
-      token: token,
+      token,
     });
   } else {
     res.json({ message: "Invalid Inputs" });
